@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useSignup } from '../../hooks/useSignup'
+import { useNavigate } from 'react-router-dom'
 import './styles.css'
 
 const Signup = () => {
@@ -9,6 +10,7 @@ const Signup = () => {
   const [thumbnail, setThumbnail] = useState(null)
   const [thumbnailError, setThumbnailError] = useState(null)
   const { signup, error, isPending } = useSignup()
+  const navigate = useNavigate()
 
   const handleChangeFile = (event) => {
     setThumbnail(null)
@@ -25,6 +27,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await signup(email, password, name, thumbnail)
+    navigate('/')
   }
 
   return (
