@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSignup } from '../../hooks/useSignup'
 import './styles.css'
 
 const Signup = () => {
@@ -7,6 +8,7 @@ const Signup = () => {
   const [name, setName] = useState("")
   const [thumbnail, setThumbnail] = useState(null)
   const [thumbnailError, setThumbnailError] = useState(null)
+  const { signup } = useSignup()
 
   const handleChangeFile = (event) => {
     setThumbnail(null)
@@ -20,8 +22,13 @@ const Signup = () => {
     setThumbnailError(null)
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await signup(email, password, name)
+  }
+
   return (
-    <form className="auth-form">
+    <form className="auth-form" onSubmit={handleSubmit}>
       <h2>Sign up</h2>
       <label>
         <span>Email:</span>
