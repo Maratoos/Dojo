@@ -8,7 +8,7 @@ const Signup = () => {
   const [name, setName] = useState("")
   const [thumbnail, setThumbnail] = useState(null)
   const [thumbnailError, setThumbnailError] = useState(null)
-  const { signup } = useSignup()
+  const { signup, error, isPending } = useSignup()
 
   const handleChangeFile = (event) => {
     setThumbnail(null)
@@ -24,7 +24,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await signup(email, password, name)
+    await signup(email, password, name, thumbnail)
   }
 
   return (
@@ -62,7 +62,9 @@ const Signup = () => {
         <input type="file" required onChange={handleChangeFile}/>
         {thumbnailError && <span className='error'>{thumbnailError}</span>}
       </label>
-      <button className="btn">Sign up</button>
+      {!isPending && <button className="btn">Sign up</button>}
+      {isPending && <button className="btn">Loading...</button>}
+      {error && <div className='error'>{error}</div>}
     </form>
   )
 }
