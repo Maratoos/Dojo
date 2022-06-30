@@ -20,13 +20,10 @@ export const useLogin = () => {
             await setDoc(usersRef, {
                 isOnline: true
             }, {merge: true})
-
-            dispatch({type: 'LOGIN', payload:user})
             
-            if(!isCancelled) {
-                setIsPending(false)
-                setError(null)
-            }
+            setIsPending(false)
+            setError(null)
+            dispatch({type: 'LOGIN', payload:user})
         }
          catch(err) {
             if(!isCancelled) {
