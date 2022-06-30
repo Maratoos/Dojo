@@ -1,6 +1,6 @@
 import React from 'react'
 import Temple from '../../assets/temple.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useLogout } from '../../hooks/useLogout'
 import './styles.css'
 import { useAuthContext } from '../../hooks/useAuthContext'
@@ -8,6 +8,13 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 const Navbar = () => {
   const { logout, isPending, error } = useLogout()
   const { user } = useAuthContext()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
+
   return (
     <nav className="navbar">
         <ul>
@@ -25,7 +32,7 @@ const Navbar = () => {
             </>}
             {user &&    
             <li>
-                {!isPending && <button onClick={logout} className="btn">Logout</button>}
+                {!isPending && <button onClick={handleLogout} className="btn">Logout</button>}
                 {isPending && <button className="btn">Loading...</button>}
                 {error && <div className='error'>{error}</div>}
             </li>
