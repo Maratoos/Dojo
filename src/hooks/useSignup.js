@@ -3,10 +3,12 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth, firestore, storage } from '../firebase/config'
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage"
 import { doc, setDoc } from "firebase/firestore"
+import { useAuthContext } from "./useAuthContext"
 
 export const useSignup = () => {
     const [error, setError] = useState(null)
-    const[isPending, setIsPending] = useState(false)
+    const [isPending, setIsPending] = useState(false)
+    const { dispatch } = useAuthContext()
 
     const signup = async (email, password, name, file) => {
         setError(null)
@@ -36,7 +38,8 @@ export const useSignup = () => {
             displayName: name,
             photoURL: imgUrl
         })
-        console.log(response);
+        await dispatch({type: 'SIGN_UP', payload: response.user})  
+
         setIsPending(false)
         setError(null)
         } catch(error) {

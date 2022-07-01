@@ -9,10 +9,10 @@ const Login = () => {
   const { login, error, isPending } = useLogin()
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    login(email, password)
-    navigate('')
+    const user = await login(email, password)
+    if(user) navigate('/')
   }
 
   return (
