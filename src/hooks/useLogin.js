@@ -1,13 +1,12 @@
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { auth, firestore } from '../firebase/config'
 import { useAuthContext } from "./useAuthContext"
 
 export const useLogin = () => {
     const [error, setError] = useState(null)
     const [isPending, setIsPending] = useState(false)
-    const [isCancelled, setIsCancelled] = useState(false)
     const { dispatch } = useAuthContext()
 
     const login = async (email, password) => {
@@ -17,24 +16,18 @@ export const useLogin = () => {
             const { user } = await signInWithEmailAndPassword(auth, email, password)
 
             const usersRef = doc(firestore, "users", user.uid)
-            await setDoc(usersRef, {
-                isOnline: true
-            }, {merge: true})
-            
+
+            await setDoc(usersRef, {isOnline: true}, {merge: true})
+            await dispatch({type: 'LOGIN', payload:user})  
+
             setIsPending(false)
             setError(null)
-            dispatch({type: 'LOGIN', payload:user})
+            return user
         }
          catch(err) {
-            if(!isCancelled) {
-                setError(err.message)
-                setIsPending(false)
-            }
+            setError(err.message)
+            setIsPending(false)
         }
     }
-
-    useEffect(() => {
-        return () => setIsCancelled(true)
-    }, [])
     return { login, error, isPending }
 }
