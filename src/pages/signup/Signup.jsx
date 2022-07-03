@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSignup } from '../../hooks/useSignup'
 import { useNavigate } from 'react-router-dom'
 import './styles.css'
+import { useAuthContext } from '../../hooks/useAuthContext'
 
 const Signup = () => {
   const [email, setEmail] = useState("")
@@ -11,6 +12,7 @@ const Signup = () => {
   const [thumbnailError, setThumbnailError] = useState(null)
   const { signup, error, isPending } = useSignup()
   const navigate = useNavigate()
+  const { user } = useAuthContext()
 
   const handleChangeFile = (event) => {
     setThumbnail(null)
@@ -29,6 +31,12 @@ const Signup = () => {
     await signup(email, password, name, thumbnail)
     navigate('/')
   }
+
+  useEffect(() => {
+    if(user) {
+      navigate("/")
+    }
+  }, [navigate, user])
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
