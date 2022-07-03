@@ -15,11 +15,7 @@ export const useSignup = () => {
         setIsPending(true)
 
         try {
-            const response = await createUserWithEmailAndPassword(
-                auth,
-                email, 
-                password
-            )
+        const response = await createUserWithEmailAndPassword(auth, email, password)
 
         const uploadPath = `avatars/${response.user.uid}/${file.name}`
         const imgRef = ref(storage, uploadPath)
