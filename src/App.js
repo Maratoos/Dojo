@@ -9,6 +9,7 @@ import Navbar from './components/navbar/Navbar'
 import Sidebar from './components/sidebar/Sidebar'
 import { useAuthContext } from './hooks/useAuthContext'
 import { useEffect } from 'react'
+import OnlineUsers from './components/onlineUsers/OnlineUsers'
 
 const PrivateRoute = (Component) => {
   const { user } = useAuthContext()
@@ -39,6 +40,7 @@ function App() {
           <Route path='/signup' element={<Signup />}/>
         </Routes>
       </div>
+      {user && <OnlineUsers />}
     </div>
   );
 }
