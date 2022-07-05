@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useGetCollection } from '../../hooks/useCollection'
+import { useCollection, useGetCollection } from '../../hooks/useCollection'
+import { useAuthContext } from '../../hooks/useAuthContext'
 import Select from 'react-select'
 import './styles.css'
+import { Timestamp } from 'firebase/firestore'
+import { useNavigate } from 'react-router-dom'
 
 const categories = [
   {value: 'development', label: 'Development'},
@@ -11,6 +14,9 @@ const categories = [
 ]
 
 const Create = () => {
+  const navigate = useNavigate()
+  const { user } = useAuthContext()
+  const { addDocument, response, } = useCollection("projects")
   const { documents, error } = useGetCollection("users")
   const [users, setUsers] = useState([])
   const [name, setName] = useState("")
@@ -20,7 +26,7 @@ const Create = () => {
   const [assignedUsers, setAssignedUsers] = useState([])
   const [formError, setFormError] = useState("")
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     setFormError(null)
@@ -43,16 +49,26 @@ const Create = () => {
     })
 
     const createdBy = {
-      
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      id: user.uid
     }
   
     const project = {
       name,
       details,
       assignedUsersList,
-      dueDate: new Date(dueDate),
+      dueDate: Timestamp.fromDate(new Date(dueDate)),
       createdBy,
       comments: []
+    }
+
+    await addDocument(project)
+
+    if (!response.error) {
+      navigate('/')
+    } else {
+      console.log(response.error)
     }
   }
   
