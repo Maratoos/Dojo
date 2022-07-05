@@ -5,7 +5,7 @@ export const useAuthContext = () => {
     const context = useContext(AuthContext)
 
     if(!context) {
-        throw error('sheshenAm Ssgein Oshibka Mal Ebanyi')
+        throw Error('sheshenAm Ssgein Oshibka Mal Ebanyi')
     }
 
     return context

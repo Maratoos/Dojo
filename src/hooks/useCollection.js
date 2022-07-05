@@ -26,16 +26,16 @@ const firestoreReducer = (state, action) => {
 }
 
 
-export const useCollection = () => {
+export const useCollection = (collectionName) => {
     const [isCancelled, setIsCancelled] = useState(false)
     const [response, dispatch] = useReducer(firestoreReducer, initialState)
 
-    const collectionRef = collection(firestore, "transactions")
+    const collectionRef = collection(firestore, collectionName)
 
     const addDocument = async (newDocument) => {
         dispatch({type:"IS_PENDING"})
         try {
-            const addedDoc = await addDoc(collectionRef, { ...newDocument, createdAt:serverTimestamp() })
+            const addedDoc = await addDoc(collectionRef, { ...newDocument, createdAt:serverTimestamp(),})
             dispatch({type:"ADDED_DOCUMENT", payload: addedDoc})
         } catch(err) {
             dispatch({type:"ERROR", payload: err.message})
