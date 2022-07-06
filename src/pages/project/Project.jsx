@@ -11,7 +11,7 @@ const Project = () => {
   if(error) {
     return <div className='error'>{error}</div>
   }
-  if(!document) {
+  if(!document && !error) {
     return <div className='loading'>Loading...</div>
   }
 
