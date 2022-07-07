@@ -25,9 +25,9 @@ const Login = () => {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
-    <h2>Login</h2>
+    <h2>Авторизация</h2>
     <label>
-      <span>Email:</span>
+      <span>Эмейл:</span>
       <input 
       type="email"
       required
@@ -36,7 +36,7 @@ const Login = () => {
       />
     </label>
     <label>
-      <span>Password:</span>
+      <span>Пароль:</span>
       <input 
       type="password"
       required
@@ -44,9 +44,9 @@ const Login = () => {
       onChange={(e) => setPassword(e.target.value)} 
       />
     </label>
-    {!isPending && <button className="btn">Login</button>}
-    {isPending && <button className="btn">Loading...</button>}
-    {error && <div className='error'>{error}</div>}
+    {!isPending && <button className="btn">Войти</button>}
+    {isPending && <button className="btn">Загрузка...</button>}
+    {error && <div className='error'>Проверьте правильность написания пароля или эмейла!!!</div>}
   </form>
   )
 }

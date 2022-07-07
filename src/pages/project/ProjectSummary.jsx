@@ -10,10 +10,10 @@ const ProjectSummary = ({ project }) => {
         <div className="project-summary">
             <h2 className="page-title">{project.name}</h2>
             <p className="due-date">
-                Сделать до: {date}
+                Срок: {date}
             </p>
             <p className="details">{project.details}</p>
-            <h4>Assigned to:</h4>
+            <h4>Исполнители проекта:</h4>
             <div className="assigned-users">
                 {project.assignedUsersList.map((user) => (
                     <div key={user.id}>

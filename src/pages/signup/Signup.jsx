@@ -18,9 +18,9 @@ const Signup = () => {
     setThumbnail(null)
     const selected = event.target.files[0]
 
-    if(!selected) return setThumbnailError('Please select a file')
-    if(!selected.type.includes('image')) return setThumbnailError('Please select a valid picture')
-    if(selected.size >= 1000000) return setThumbnailError('Please select a file smaller than 100kb')
+    if(!selected) return setThumbnailError('Пожалуйста, выберите файл!!!')
+    if(!selected.type.includes('image')) return setThumbnailError('Пожалуйста, выберите файл с расширением png или jpg/jpeg!!!')
+    if(selected.size >= 1000000) return setThumbnailError('Пожалуйста выберите файл, размером менее 100 килобайт!!!')
 
     setThumbnail(selected)
     setThumbnailError(null)
@@ -40,9 +40,9 @@ const Signup = () => {
 
   return (
     <form className="auth-form" onSubmit={handleSubmit}>
-      <h2>Sign up</h2>
+      <h2>Регистрация</h2>
       <label>
-        <span>Email:</span>
+        <span>Эмейл:</span>
         <input 
         type="email"
         required
@@ -51,7 +51,7 @@ const Signup = () => {
         />
       </label>
       <label>
-        <span>Password:</span>
+        <span>Пароль:</span>
         <input 
         type="password"
         required
@@ -60,7 +60,7 @@ const Signup = () => {
         />
       </label>
       <label>
-        <span>Name:</span>
+        <span>Имя:</span>
         <input 
         type="text"
         required
@@ -69,12 +69,12 @@ const Signup = () => {
         />
       </label>
       <label>
-        <span>Profile Thumbnail:</span>
+        <span>Картинка профиля:</span>
         <input type="file" required onChange={handleChangeFile}/>
         {thumbnailError && <span className='error'>{thumbnailError}</span>}
       </label>
-      {!isPending && <button className="btn">Sign up</button>}
-      {isPending && <button className="btn">Loading...</button>}
+      {!isPending && <button className="btn">Регистрация</button>}
+      {isPending && <button className="btn">Загрузка...</button>}
       {error && <div className='error'>{error}</div>}
     </form>
   )

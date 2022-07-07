@@ -12,7 +12,7 @@ const Project = () => {
     return <div className='error'>{error}</div>
   }
   if(!document && !error) {
-    return <div className='loading'>Loading...</div>
+    return <div className='loading'>Загрузка...</div>
   }
 
   return (

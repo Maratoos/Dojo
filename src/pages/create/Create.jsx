@@ -7,10 +7,10 @@ import { Timestamp } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 
 const categories = [
-  {value: 'development', label: 'Development'},
-  {value: 'design', label: 'Design'},
-  {value: 'sales', label: 'Sales'},
-  {value: 'marketing', label: 'Marketing'}
+  {value: 'development', label: 'Разработка'},
+  {value: 'design', label: 'Дизайн'},
+  {value: 'sales', label: 'Продажи'},
+  {value: 'marketing', label: 'Маркетинг'}
 ]
 
 const Create = () => {
@@ -32,11 +32,11 @@ const Create = () => {
     setFormError(null)
 
     if(!category) {
-      setFormError("Please, select project category!")
+      setFormError("Пожалуйста, выберите категорию!")
       return
     }
     if(!assignedUsers.length) {
-      setFormError("Please, assign the project at least 1 user!")
+      setFormError("Пожалуйста, добавьте к проекту хотя-бы одного пользователя!")
       return
     }
 
@@ -82,10 +82,10 @@ const Create = () => {
 
   return (
     <div className="create-form">
-      <h2 className='page-title'>Create a new project</h2>
+      <h2 className='page-title'>Создайте новый проект!</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          <span>Project name:</span>
+          <span>Имя проекта:</span>
           <input 
           type="text"
           required
@@ -94,7 +94,7 @@ const Create = () => {
           />
         </label>
         <label>
-          <span>Project details:</span>
+          <span>Описание проекта:</span>
           <textarea 
           required
           value={details}
@@ -102,7 +102,7 @@ const Create = () => {
           ></textarea>
         </label>
         <label>
-          <span>Set due date:</span>
+          <span>Дата окончания:</span>
           <input 
           type="date"
           required
@@ -111,14 +111,14 @@ const Create = () => {
           />
         </label>
         <label>
-          <span>Project category:</span>
+          <span>Категория проекта:</span>
           <Select
           onChange={(option) => setCategory(option)} 
           options={categories} 
           />
         </label>
         <label>
-          <span>Assign to:</span>
+          <span>Исполнители проекта:</span>
           <Select
           onChange={(option) => setAssignedUsers(option)} 
           options={users} 
@@ -126,7 +126,7 @@ const Create = () => {
           />
         </label>
         {formError && <div className='error'>{formError}</div>}
-        <button className='btn'>Add project</button>
+        <button className='btn'>Добавить</button>
   </form>
     </div>
   )

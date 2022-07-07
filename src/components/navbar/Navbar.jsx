@@ -24,16 +24,16 @@ const Navbar = () => {
             </li>
             {!user && <>          
             <li>
-                <Link to="/login">Login</Link>
+                <Link to="/login">Авторизаиця</Link>
             </li>
             <li>
-                <Link to="/signup">Signup</Link>
+                <Link to="/signup">Регистрация</Link>
             </li>
             </>}
             {user &&    
             <li>
-                {!isPending && <button onClick={handleLogout} className="btn">Logout</button>}
-                {isPending && <button className="btn">Loading...</button>}
+                {!isPending && <button onClick={handleLogout} className="btn">Выйти</button>}
+                {isPending && <button className="btn">Загрузка...</button>}
                 {error && <div className='error'>{error}</div>}
             </li>
             }
