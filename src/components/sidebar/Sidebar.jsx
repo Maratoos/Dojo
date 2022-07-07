@@ -13,20 +13,20 @@ const Sidebar = () => {
         <div className="sidebar-content">
             <div className="user">
                 <Avatar src={user.photoURL} />
-                <p>Hey, {user.displayName}</p>
+                <p>Привет, {user.displayName}</p>
             </div>
             <nav className="links">
                 <ul>
                     <li>
                         <NavLink to="/">
                             <img src={DashboardIcon} alt="Dashboard Icon" />
-                            <span>Dashboard</span>
+                            <span>Доска</span>
                         </NavLink>
                     </li>
                     <li>  
                         <NavLink to="/create">
                             <img src={AddIcon} alt="Add Icon" />
-                            <span>New Project</span>
+                            <span>Новый проект</span>
                         </NavLink>
                     </li>
                 </ul>

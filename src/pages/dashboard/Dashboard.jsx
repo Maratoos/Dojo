@@ -7,7 +7,7 @@ const Dashboard = () => {
   const { documents ,error } = useGetCollection("projects")
   return (
     <div>
-      <h2 className='page-title'>Dashboard</h2>
+      <h2 className='page-title'>Доска проектов</h2>
       {error && <p className='error'>{error}</p>}
       {documents && <Projects projects={documents}/>}
     </div>

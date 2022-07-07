@@ -7,7 +7,7 @@ const OnlineUsers = () => {
     const { error, documents } = useGetCollection('users')
   return (
     <div className='user-list'>
-        <h2>All Users</h2>
+        <h2>Все пользователи</h2>
         {error && <div className='error'>{error}</div>}
         {documents && documents.map((user) => {
             return (
