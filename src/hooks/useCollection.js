@@ -1,4 +1,4 @@
-import { addDoc, collection, onSnapshot, query, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot, query, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
 import { firestore } from "../firebase/config";
 
@@ -19,6 +19,9 @@ const firestoreReducer = (state, action) => {
         }
         case "ERROR": {
             return { isPending: false, error: action.payload, document: null, success:false}
+        }
+        case "UPDATED_DOCUMENT": {
+            return { isPending: false, error: null, document: action.payload, success:false}
         }
         default:
             return state
@@ -41,12 +44,28 @@ export const useCollection = (collectionName) => {
             dispatch({type:"ERROR", payload: err.message})
         }
     }
+    
+    const updateDocument = async (docId, newData) => {
+      dispatch({type: "IS_PENDING"})
+        try{
+           const updatedDoc = await setDoc(
+            doc(firestore, "projects", docId),
+            newData,
+            { merge: true }
+            ) 
+            dispatch({ type: "UPDATED_DOCUMENT", payload: updatedDoc })   
+            return updateDoc  
+        } catch (err) {
+            dispatch({ type: "ERROR", payload: err.message })
+            return null
+        }
+    }
 
     useEffect(() => {
         return () => setIsCancelled(true)
     }, [])
 
-    return { addDocument, isCancelled, response }
+    return { addDocument, isCancelled, response, updateDocument }
 }
 
 export const useGetCollection = (collectionName, options) => {

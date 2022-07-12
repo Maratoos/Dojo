@@ -1,16 +1,14 @@
 import React from 'react'
-import { format } from 'date-fns'
-import { ru } from 'date-fns/esm/locale'
+import { dueDate } from '../../helpers/date'
 import Avatar from '../../components/avatar/Avatar'
 
 const ProjectSummary = ({ project }) => {
-  const date = format(project.dueDate.toDate(), 'EEEE d MMMM y', {locale: ru})
   return (
     <div>
         <div className="project-summary">
             <h2 className="page-title">{project.name}</h2>
             <p className="due-date">
-                Срок: {date}
+                Срок: {dueDate(project.dueDate.toDate())}
             </p>
             <p className="details">{project.details}</p>
             <h4>Исполнители проекта:</h4>
