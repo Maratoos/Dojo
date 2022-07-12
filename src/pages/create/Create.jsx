@@ -16,8 +16,8 @@ const categories = [
 const Create = () => {
   const navigate = useNavigate()
   const { user } = useAuthContext()
-  const { addDocument, response, } = useCollection("projects")
-  const { documents, error } = useGetCollection("users")
+  const { addDocument, response } = useCollection("projects")
+  const { documents, error, isPending } = useGetCollection("users")
   const [users, setUsers] = useState([])
   const [name, setName] = useState("")
   const [details, setDetails] = useState("")
@@ -128,6 +128,8 @@ const Create = () => {
         </label>
         {formError && <div className='error'>{formError}</div>}
         <button className='btn'>Добавить</button>
+        {isPending && <button className="btn">Загрузка...</button>}
+        {error && <div className='error'>{error}</div>}
   </form>
     </div>
   )
