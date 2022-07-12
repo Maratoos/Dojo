@@ -11,12 +11,13 @@ export const useDocument = (collectionName, id) => {
 
         const unsubscribe = onSnapshot(docRef,  (snap) => {
             if(snap.data()) {
-                setDocument(snap.data())
+                setDocument({...snap.data(), id: snap.id})
                 setError(null)
+            } else {
+                setError("Пожалйуста Подождите немного, если ждете больше минуты, то такого проекта не существует!!!")
             }
         }, (err) => {
             setError(err)
-            setDocument(null)
           }
         )
 
