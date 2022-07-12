@@ -8,7 +8,7 @@ import { toNow } from '../../helpers/date'
 
 const ProjectComment = ({ project }) => {
   const { user } = useAuthContext()
-  const { updateDocument, response } = useCollection("projects")
+  const { updateDocument, response, isPending, error } = useCollection("projects")
   const [newComment, setNewComment] = useState("") 
 
   const handleSubmit = async (e) => {
@@ -65,6 +65,8 @@ const ProjectComment = ({ project }) => {
                 </textarea>
             </label>
             <button className="btn">Добавить</button>
+            {isPending && <button className="btn">Загрузка...</button>}
+            {error && <div className='error'>{error}</div>}
         </form>
     </div>
   )
