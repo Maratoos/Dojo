@@ -1,6 +1,6 @@
-import { addDoc, collection, doc, onSnapshot, query, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, onSnapshot, query, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
-import { firestore } from "../firebase/config";
+import { db, firestore } from "../firebase/config";
 
 const initialState = {
     document:null,
@@ -23,6 +23,9 @@ const firestoreReducer = (state, action) => {
         case "UPDATED_DOCUMENT": {
             return { isPending: false, error: null, document: action.payload, success:false}
         }
+        case "DELETED_DOCUMENT": {
+            return { isPending: false, error: null, document: null, success: false }
+        }
         default:
             return state
     }
@@ -39,7 +42,7 @@ export const useCollection = (collectionName) => {
         dispatch({type:"IS_PENDING"})
         try {
             const addedDoc = await addDoc(collectionRef, { ...newDocument, createdAt:serverTimestamp(),})
-            dispatch({type:"ADDED_DOCUMENT", payload: addedDoc})
+            dispatch({type:"UPDATED_DOCUMENT", payload: addedDoc})
         } catch(err) {
             dispatch({type:"ERROR", payload: err.message})
         }
@@ -60,6 +63,16 @@ export const useCollection = (collectionName) => {
             return null
         }
     }
+
+    // const deleteDocument = async (docId) => {
+    //     dispatch({type:"IS_PENDING"})
+    //     try {
+    //         await deleteDoc(doc(firestore, "projects", docId))
+    //         dispatch({type:"DELETED_DOCUMENT"})
+    //     } catch (err) {
+    //         dispatch({type:"ERROR", payload: err.message})
+    //     }
+    // }
 
     useEffect(() => {
         return () => setIsCancelled(true)

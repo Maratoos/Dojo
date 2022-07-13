@@ -14,7 +14,7 @@ export const useDocument = (collectionName, id) => {
                 setDocument({...snap.data(), id: snap.id})
                 setError(null)
             } else {
-                setError("Пожалйуста Подождите немного, если ждете больше минуты, то такого проекта не существует!!!")
+                setError("Такого проекта нет!!!")
             }
         }, (err) => {
             setError(err)
