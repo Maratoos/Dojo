@@ -21,7 +21,6 @@ const ProjectComment = ({ project }) => {
         createdAt: Timestamp.fromDate(new Date()),
         id: uuidv4()
     }
-    console.log(project)
     await updateDocument(project.id, {
         comments: [...project.comments, commentToAdd]
     })
@@ -65,8 +64,6 @@ const ProjectComment = ({ project }) => {
                 </textarea>
             </label>
             <button className="btn">Добавить</button>
-            {isPending && <button className="btn">Загрузка...</button>}
-            {error && <div className='error'>{error}</div>}
         </form>
     </div>
   )
