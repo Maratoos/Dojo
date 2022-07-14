@@ -127,7 +127,7 @@ const Create = () => {
           />
         </label>
         {formError && <div className='error'>{formError}</div>}
-        <button className='btn'>Добавить</button>
+        {!isPending && <button className='btn'>Добавить</button>}
         {isPending && <button className="btn">Загрузка...</button>}
         {error && <div className='error'>{error}</div>}
   </form>
