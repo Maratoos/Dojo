@@ -1,6 +1,6 @@
 import { addDoc, collection, deleteDoc, doc, onSnapshot, query, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
-import { db, firestore } from "../firebase/config";
+import { firestore } from "../firebase/config";
 
 const initialState = {
     document:null,
@@ -64,21 +64,21 @@ export const useCollection = (collectionName) => {
         }
     }
 
-    // const deleteDocument = async (docId) => {
-    //     dispatch({type:"IS_PENDING"})
-    //     try {
-    //         await deleteDoc(doc(firestore, "projects", docId))
-    //         dispatch({type:"DELETED_DOCUMENT"})
-    //     } catch (err) {
-    //         dispatch({type:"ERROR", payload: err.message})
-    //     }
-    // }
+    const deleteDocument = async (docId) => {
+        dispatch({type:"IS_PENDING"})
+        try {
+            await deleteDoc(doc(firestore, collectionName, docId))
+            dispatch({type:"DELETED_DOCUMENT"})
+        } catch (err) {
+            dispatch({type:"ERROR", payload: err.message})
+        }
+    }
 
     useEffect(() => {
         return () => setIsCancelled(true)
     }, [])
 
-    return { addDocument, isCancelled, response, updateDocument }
+    return { addDocument, isCancelled, response, updateDocument, deleteDocument }
 }
 
 export const useGetCollection = (collectionName, options) => {
