@@ -24,7 +24,7 @@ const Navbar = () => {
             </li>
             {!user && <>          
             <li>
-                <Link to="/login">Авторизаиця</Link>
+                <Link to="/login">Авторизация</Link>
             </li>
             <li>
                 <Link to="/signup">Регистрация</Link>
