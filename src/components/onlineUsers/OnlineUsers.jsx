@@ -12,9 +12,10 @@ const OnlineUsers = () => {
         {documents && documents.map((user) => {
             return (
                 <div className='user-list-item' key={user.id}>
-                    {user.isOnline && <span className='online-user'></span>}
-                    <span>{user.displayName}</span>
-                    <Avatar src={user.photoURL}/>
+                    <span className='username'>{user.displayName}</span>
+                      <Avatar src={user.photoURL} className="user-avatar">    
+                        {user.isOnline && <span className='online-user'></span>}
+                      </Avatar>
                 </div>
             )
         })}
