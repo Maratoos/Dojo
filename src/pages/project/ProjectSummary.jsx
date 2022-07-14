@@ -20,9 +20,7 @@ const ProjectSummary = ({ project }) => {
         <div className="project-summary">
             <div className="summary-header">
             <h2 className="page-title">{project.name}</h2>
-            {project.createdBy.id === user.uid && (
-            <button onClick={handleDelete} className='btn'>Удалить проект</button>
-            )}
+            {project.createdBy.id === user.uid && <button onClick={handleDelete} className='btn'>Удалить проект</button>}
             </div>
             <p className="due-date">
                 Срок: {dueDate(project.dueDate.toDate())}

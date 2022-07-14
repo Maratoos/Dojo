@@ -6,7 +6,7 @@ import ProjectFilter from './ProjectFilter'
 import { useAuthContext } from '../../hooks/useAuthContext'
 
 const Dashboard = () => {
-  const [currentFilter, setCurrentFilter] = useState("All")
+  const [currentFilter, setCurrentFilter] = useState("all")
   const { documents ,error } = useGetCollection("projects")
   const { user } = useAuthContext()
 
