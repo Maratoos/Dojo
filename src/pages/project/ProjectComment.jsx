@@ -8,10 +8,12 @@ import { toNow } from '../../helpers/date'
 
 const ProjectComment = ({ project }) => {
   const { user } = useAuthContext()
-  const { updateDocument, response, isPending, error } = useCollection("projects")
-  const [newComment, setNewComment] = useState("") 
+  const { updateDocument, response } = useCollection("projects")
+  const [newComment, setNewComment] = useState("")
+  const [isPending, setIsPending] = useState(false) 
 
   const handleSubmit = async (e) => {
+    setIsPending(true)
     e.preventDefault()
 
     const commentToAdd = {
@@ -24,12 +26,11 @@ const ProjectComment = ({ project }) => {
     await updateDocument(project.id, {
         comments: [...project.comments, commentToAdd]
     })
+    setIsPending(false)
     if(!response.error) {
         setNewComment("")
     }
   }
-  //ПОСЛЕ ОТПРАВКИ СООБЩЕНИЯ ДОЛЖНО ПРОСКРОДЛЛИТЬ ВНИЗ ВО ВЬЮ ЧАТЕ ЭТО БЫЛО
-  //РЕАЛИЗОВАТЬ УДАЛЕНИЕ, И СДЕЛАТЬ ТАК ЧТОБЫ УДАЛИТЬ МОГ ТОЛЬКО ЧЕЛОВЕК СОЗДАВШИЙ ПРОЕКТ
   return (
     <div className="project-comments">
         <h4>Комментарии</h4>
@@ -63,7 +64,8 @@ const ProjectComment = ({ project }) => {
                 >
                 </textarea>
             </label>
-            <button className="btn">Добавить</button>
+            {!isPending && <button className='btn'>Добавить</button>}
+            {isPending && <button className="btn">Загрузка...</button>}
         </form>
     </div>
   )

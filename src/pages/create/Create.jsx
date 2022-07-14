@@ -17,7 +17,7 @@ const Create = () => {
   const navigate = useNavigate()
   const { user } = useAuthContext()
   const { addDocument, response } = useCollection("projects")
-  const { documents, error, isPending } = useGetCollection("users")
+  const { documents } = useGetCollection("users")
   const [users, setUsers] = useState([])
   const [name, setName] = useState("")
   const [details, setDetails] = useState("")
@@ -25,8 +25,10 @@ const Create = () => {
   const [category, setCategory] = useState("")
   const [assignedUsers, setAssignedUsers] = useState([])
   const [formError, setFormError] = useState("")
+  const [isPending, setIsPending] = useState(false)
 
   const handleSubmit = async (e) => {
+    setIsPending(true)
     e.preventDefault()
 
     setFormError(null)
@@ -65,6 +67,7 @@ const Create = () => {
     }
 
     await addDocument(project)
+    setIsPending(false)
 
     if (!response.error) {
       navigate('/')
@@ -129,7 +132,6 @@ const Create = () => {
         {formError && <div className='error'>{formError}</div>}
         {!isPending && <button className='btn'>Добавить</button>}
         {isPending && <button className="btn">Загрузка...</button>}
-        {error && <div className='error'>{error}</div>}
   </form>
     </div>
   )

@@ -13,14 +13,14 @@ const Sidebar = () => {
         <div className="sidebar-content">
             <div className="user">
                 <Avatar src={user.photoURL} />
-                <p>Привет, {user.displayName}</p>
+                <p>{user.displayName}</p>
             </div>
             <nav className="links">
                 <ul>
                     <li>
                         <NavLink to="/">
                             <img src={DashboardIcon} alt="Dashboard Icon" />
-                            <span>Доска</span>
+                            <span>Доска проектов</span>
                         </NavLink>
                     </li>
                     <li>  
